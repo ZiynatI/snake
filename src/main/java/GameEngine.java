@@ -1,7 +1,6 @@
 import java.util.Scanner;
 
 public class GameEngine {
-    int score;
 
 
     public static void play() {
