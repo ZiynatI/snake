@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class Snake {
-    Queue<Pair<Integer, Integer>> snakesLocation;
+    Deque<Pair<Integer, Integer>> snakesLocation;
     Direction direction;
     Scanner input;
     int score;
@@ -19,36 +19,41 @@ public class Snake {
             String nextDir = this.input.next();
             switch (nextDir) {
                 case "R": {
-                    snakesHead = new Pair<>(snakesHead.left, snakesHead.right + 1);
+
                     this.direction = Direction.RIGHT;
+                    snakesLocation.offer(new Pair<>(snakesHead.left, snakesHead.right + 1));
                 }
                 case "L": {
-                    snakesHead = new Pair<>(snakesHead.left, snakesHead.right);
+
                     this.direction = Direction.LEFT;
+                    snakesLocation.offer(new Pair<>(snakesHead.left, snakesHead.right - 1));
                 }
                 case "U": {
-                    snakesHead = new Pair<>(snakesHead.left + 1, snakesHead.right);
+
                     this.direction = Direction.UP;
+                    snakesLocation.offer(new Pair<>(snakesHead.left - 1, snakesHead.right));
                 }
                 case "D": {
-                    snakesHead = new Pair<>(snakesHead.left - 1, snakesHead.right);
+
                     this.direction = Direction.DOWN;
+                    snakesLocation.offer(new Pair<>(snakesHead.left + 1, snakesHead.right));
                 }
             }
-            snakesLocation.offer(snakesHead);
-            if (field.apple.equals(snakesHead)) {
-                field.hasAnApple = false;
-                this.score++;
-            } else {
-                snakesLocation.remove();
-            }
         }
+        snakesHead = snakesLocation.getFirst();
+        if (field.apple.equals(snakesHead)) {
+            field.hasAnApple = false;
+            this.score++;
+        } else {
+            snakesLocation.remove();
+        }
+
 
         return this.direction;
     }
 
-    public static Queue<Pair<Integer, Integer>> startingSnake() {
-        Queue<Pair<Integer, Integer>> result = new LinkedList<>();
+    public static Deque<Pair<Integer, Integer>> startingSnake() {
+        Deque<Pair<Integer, Integer>> result = new LinkedList<>();
         result.add(new Pair<>(7, 3));
         result.add(new Pair<>(7, 4));
         result.add(new Pair<>(7, 5));
