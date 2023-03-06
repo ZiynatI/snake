@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class GameEngine {
 
-    public static void play() throws InterruptedException {
+    public static void play() throws Exception {
         boolean gameOver = false;
         Field field = new Field();
         Scanner input = new Scanner(System.in);
