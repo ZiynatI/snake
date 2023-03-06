@@ -17,32 +17,46 @@ public class Snake {
     public Direction move(Field field) {
         if (this.input.hasNext()) {
             String nextDir = this.input.next();
-            switch (nextDir) {
-                case "R": {
-
-                    this.direction = Direction.RIGHT;
-                    snakesLocation.offer(new Pair<>(snakesHead.left, snakesHead.right + 1));
-                }
-                case "L": {
-
-                    this.direction = Direction.LEFT;
-                    snakesLocation.offer(new Pair<>(snakesHead.left, snakesHead.right - 1));
-                }
-                case "U": {
-
-                    this.direction = Direction.UP;
-                    snakesLocation.offer(new Pair<>(snakesHead.left - 1, snakesHead.right));
-                }
-                case "D": {
-
-                    this.direction = Direction.DOWN;
-                    snakesLocation.offer(new Pair<>(snakesHead.left + 1, snakesHead.right));
-                }
+            if (nextDir.equals("R")) {
+                this.direction = Direction.RIGHT;
+                snakesLocation.offer(new Pair<>(snakesHead.left, snakesHead.right + 1));
+            } else if (nextDir.equals("L")) {
+                this.direction = Direction.LEFT;
+                snakesLocation.offer(new Pair<>(snakesHead.left, snakesHead.right - 1));
+            } else if (nextDir.equals("U")) {
+                this.direction = Direction.UP;
+                snakesLocation.offer(new Pair<>(snakesHead.left - 1, snakesHead.right));
+            } else if (nextDir.equals("D")) {
+                this.direction = Direction.DOWN;
+                snakesLocation.offer(new Pair<>(snakesHead.left + 1, snakesHead.right));
             }
+            //            switch (nextDir) {
+            //                case "R": {
+            //
+            //                    this.direction = Direction.RIGHT;
+            //                    snakesLocation.offer(new Pair<>(snakesHead.left, snakesHead.right + 1));
+            //                }
+            //                case "L": {
+            //
+            //                    this.direction = Direction.LEFT;
+            //                    snakesLocation.offer(new Pair<>(snakesHead.left, snakesHead.right - 1));
+            //                }
+            //                case "U": {
+            //
+            //                    this.direction = Direction.UP;
+            //                    snakesLocation.offer(new Pair<>(snakesHead.left - 1, snakesHead.right));
+            //                }
+            //                case "D": {
+            //
+            //                    this.direction = Direction.DOWN;
+            //                    snakesLocation.offer(new Pair<>(snakesHead.left + 1, snakesHead.right));
+            //                }
+            //            }
         }
-        snakesHead = snakesLocation.getFirst();
+        snakesHead = snakesLocation.getLast();
         if (field.apple.equals(snakesHead)) {
-            field.hasAnApple = false;
+            field.hasAnApple=false;
+            field.generateApple();
             this.score++;
         } else {
             snakesLocation.remove();
