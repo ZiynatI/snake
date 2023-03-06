@@ -1,3 +1,5 @@
+package org.zi.snake;
+
 import java.util.Objects;
 
 

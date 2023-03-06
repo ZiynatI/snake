@@ -1,4 +1,9 @@
+package org.zi.snake;
+
 import java.util.Scanner;
+
+import org.zi.snake.Field;
+import org.zi.snake.Snake;
 
 public class GameEngine {
 

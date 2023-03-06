@@ -1,4 +1,8 @@
+package org.zi.snake;
+
 import java.util.*;
+
+import org.zi.snake.Field;
 
 public class Snake {
     Deque<Pair<Integer, Integer>> snakesLocation;

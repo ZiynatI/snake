@@ -1,3 +1,5 @@
+package org.zi.snake;
+
 public class Field {
     int[][] field;
     Pair<Integer, Integer> apple;
