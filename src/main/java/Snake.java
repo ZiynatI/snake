@@ -5,6 +5,7 @@ public class Snake {
     Direction direction;
     Scanner input;
     int score;
+    boolean snakeCameWrong = false;
     Pair<Integer, Integer> snakesHead = new Pair<>(7, 5);
 
     public Snake(Scanner input) {
@@ -14,48 +15,40 @@ public class Snake {
         this.score = 0;
     }
 
-    public Direction move(Field field) {
+    public void move(Field field) {
+        Pair<Integer, Integer> cellToMoveIn = new Pair<>(0, 0);
         if (this.input.hasNext()) {
             String nextDir = this.input.next();
-            if (nextDir.equals("R")) {
-                this.direction = Direction.RIGHT;
-                snakesLocation.offer(new Pair<>(snakesHead.left, snakesHead.right + 1));
-            } else if (nextDir.equals("L")) {
-                this.direction = Direction.LEFT;
-                snakesLocation.offer(new Pair<>(snakesHead.left, snakesHead.right - 1));
-            } else if (nextDir.equals("U")) {
-                this.direction = Direction.UP;
-                snakesLocation.offer(new Pair<>(snakesHead.left - 1, snakesHead.right));
-            } else if (nextDir.equals("D")) {
-                this.direction = Direction.DOWN;
-                snakesLocation.offer(new Pair<>(snakesHead.left + 1, snakesHead.right));
+            switch (nextDir) {
+                case "R":
+                    this.direction = Direction.RIGHT;
+                    cellToMoveIn = new Pair<>(snakesHead.left, snakesHead.right + 1);
+                    snakesLocation.offer(new Pair<>(snakesHead.left, snakesHead.right + 1));
+                    break;
+                case "L":
+                    this.direction = Direction.LEFT;
+                    cellToMoveIn = new Pair<>(snakesHead.left, snakesHead.right - 1);
+                    snakesLocation.offer(new Pair<>(snakesHead.left, snakesHead.right - 1));
+                    break;
+                case "U":
+                    this.direction = Direction.UP;
+                    cellToMoveIn = new Pair<>(snakesHead.left - 1, snakesHead.right);
+                    snakesLocation.offer(new Pair<>(snakesHead.left - 1, snakesHead.right));
+                    break;
+                case "D":
+                    this.direction = Direction.DOWN;
+                    cellToMoveIn = new Pair<>(snakesHead.left + 1, snakesHead.right);
+                    snakesLocation.offer(new Pair<>(snakesHead.left + 1, snakesHead.right));
+                    break;
             }
-            //            switch (nextDir) {
-            //                case "R": {
-            //
-            //                    this.direction = Direction.RIGHT;
-            //                    snakesLocation.offer(new Pair<>(snakesHead.left, snakesHead.right + 1));
-            //                }
-            //                case "L": {
-            //
-            //                    this.direction = Direction.LEFT;
-            //                    snakesLocation.offer(new Pair<>(snakesHead.left, snakesHead.right - 1));
-            //                }
-            //                case "U": {
-            //
-            //                    this.direction = Direction.UP;
-            //                    snakesLocation.offer(new Pair<>(snakesHead.left - 1, snakesHead.right));
-            //                }
-            //                case "D": {
-            //
-            //                    this.direction = Direction.DOWN;
-            //                    snakesLocation.offer(new Pair<>(snakesHead.left + 1, snakesHead.right));
-            //                }
-            //            }
+        }
+        if (snakeCameWrong(cellToMoveIn, field)) {
+            this.snakeCameWrong = true;
+            return;
         }
         snakesHead = snakesLocation.getLast();
         if (field.apple.equals(snakesHead)) {
-            field.hasAnApple=false;
+            field.hasAnApple = false;
             field.generateApple();
             this.score++;
         } else {
@@ -63,7 +56,15 @@ public class Snake {
         }
 
 
-        return this.direction;
+    }
+
+    public boolean snakeCameWrong(Pair<Integer, Integer> cellToMoveIn, Field field) {
+        if (this.snakesLocation.contains(cellToMoveIn)) {
+            return false;
+        } else if (cellToMoveIn.getLeft() > 16 || cellToMoveIn.getLeft() < 0 || cellToMoveIn.getRight() > 16 || cellToMoveIn.getRight() < 0) {
+            return false;
+        }
+        return true;
     }
 
     public static Deque<Pair<Integer, Integer>> startingSnake() {
