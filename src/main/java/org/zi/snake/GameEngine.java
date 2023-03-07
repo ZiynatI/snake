@@ -7,7 +7,7 @@ import org.zi.snake.Snake;
 
 public class GameEngine {
 
-    public static void play() throws Exception {
+    public static void play() throws InterruptedException {
         boolean gameOver = false;
         Field field = new Field();
         Scanner input = new Scanner(System.in);

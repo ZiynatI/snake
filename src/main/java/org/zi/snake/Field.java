@@ -1,9 +1,9 @@
 package org.zi.snake;
 
 public class Field {
-    int[][] field;
-    Pair<Integer, Integer> apple;
-    boolean hasAnApple;
+    private int[][] field;
+    public Pair<Integer, Integer> apple;
+    public boolean hasAnApple;
 
     Field() {
         this.field = new int[16][16];
@@ -25,10 +25,9 @@ public class Field {
         for (int i = 0; i < field.length; i++) {
             sb.append("|");
             for (int j = 0; j < field[i].length; j++) {
-                if(new Pair<>(i,j).equals(apple)){
+                if (new Pair<>(i, j).equals(apple)) {
                     sb.append("A");
-                }
-               else if (snake.snakesLocation.contains(new Pair<>(i, j))) {
+                } else if (snake.getSnakesLocation().contains(new Pair<>(i, j))) {
                     sb.append("O");
                 } else {
                     sb.append(" ");
@@ -38,5 +37,9 @@ public class Field {
         }
         sb.append("__________________");
         return sb.toString();
+    }
+
+    public int[][] getField() {
+        return field;
     }
 }

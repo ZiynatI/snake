@@ -2,14 +2,12 @@ package org.zi.snake;
 
 import java.util.*;
 
-import org.zi.snake.Field;
-
 public class Snake {
-    Deque<Pair<Integer, Integer>> snakesLocation;
-    Direction direction;
-    Scanner input;
-    int score;
-    boolean snakeCameWrong = false;
+    private Deque<Pair<Integer, Integer>> snakesLocation;
+    private Direction direction;
+    private Scanner input;
+    public int score;
+    public boolean snakeCameWrong = false;
     Pair<Integer, Integer> snakesHead = new Pair<>(7, 5);
 
     public Snake(Scanner input) {
@@ -19,21 +17,20 @@ public class Snake {
         this.score = 0;
     }
 
-    public void move(Field field) throws Exception {
+    public void move(Field field)  {
         Pair<Integer, Integer> cellToMoveIn = new Pair<>(0, 0);
         if (this.input.hasNext()) {
             String nextDir = this.input.next();
             switch (nextDir) {
-                case "R":
+                case "W":
                     this.direction = Direction.RIGHT;
                     cellToMoveIn = new Pair<>(snakesHead.left, snakesHead.right + 1);
                     break;
-                case "L":
+                case "A":
                     this.direction = Direction.LEFT;
                     cellToMoveIn = new Pair<>(snakesHead.left, snakesHead.right - 1);
-
                     break;
-                case "U":
+                case "S":
                     this.direction = Direction.UP;
                     cellToMoveIn = new Pair<>(snakesHead.left - 1, snakesHead.right);
                     break;
@@ -41,7 +38,6 @@ public class Snake {
                     this.direction = Direction.DOWN;
                     cellToMoveIn = new Pair<>(snakesHead.left + 1, snakesHead.right);
                     break;
-                default:throw new Exception("Wrong direction");
             }
         }
         if (snakeCameWrong(cellToMoveIn, field)) {
@@ -70,6 +66,10 @@ public class Snake {
         return false;
     }
 
+    public Deque<Pair<Integer, Integer>> getSnakesLocation() {
+        return this.snakesLocation;
+    }
+
     public static Deque<Pair<Integer, Integer>> startingSnake() {
         Deque<Pair<Integer, Integer>> result = new LinkedList<>();
         result.add(new Pair<>(7, 3));
@@ -79,12 +79,6 @@ public class Snake {
     }
 
     public enum Direction {
-
-        DEFAULT("0"), LEFT("L"), RIGHT("R"), UP("U"), DOWN("D");
-        String directionValue;
-
-        Direction(String directionValue) {
-
-        }
+        LEFT, RIGHT, UP, DOWN;
     }
 }
