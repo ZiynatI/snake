@@ -5,12 +5,11 @@ import java.util.*;
 public class Snake {
     private Queue<Pair<Integer, Integer>> snakesLocation;
     private Direction direction;
-    private String input;
     private int score;
-    private boolean snakeCameWrong = false;
+    private boolean snakeDidWrongMove = false;
 
 
-    Pair<Integer, Integer> snakesHead = new Pair<>(7, 5);
+    private Pair<Integer, Integer> snakesHead = new Pair<>(7, 5);
 
     public Snake() {
         this.snakesLocation = startingSnake();
@@ -34,25 +33,17 @@ public class Snake {
                 cellToMoveIn = new Pair<>(snakesHead.left + 1, snakesHead.right);
                 break;
         }
-        if (didWrongMove(cellToMoveIn, field)) {
-            this.snakeCameWrong = true;
+        if (didWrongMove(cellToMoveIn)) {
+            this.snakeDidWrongMove = true;
             return;
         }
         snakesLocation.offer(cellToMoveIn);
         snakesHead = cellToMoveIn;
-        if (field.getApple().equals(snakesHead)) {
-            field.setAnApple(false);
-            field.generateApple(snakesLocation);
-            this.score++;
-        } else {
-            snakesLocation.remove();
-        }
     }
 
-    private boolean didWrongMove(Pair<Integer, Integer> cellToMoveIn, Field field) {
-        if (this.snakesLocation.contains(cellToMoveIn)) {
-            return true;
-        } else if (cellToMoveIn.getLeft() > 15 || cellToMoveIn.getLeft() < 0 || cellToMoveIn.getRight() > 15 || cellToMoveIn.getRight() < 0) {
+    private boolean didWrongMove(Pair<Integer, Integer> cellToMoveIn) {
+        if (this.snakesLocation.contains(cellToMoveIn) || (cellToMoveIn.getLeft() > 15 || cellToMoveIn.getLeft() < 0 ||
+                cellToMoveIn.getRight() > 15 || cellToMoveIn.getRight() < 0)) {
             return true;
         }
         return false;
@@ -79,14 +70,18 @@ public class Snake {
     }
 
     public boolean didWrongMove() {
-        return snakeCameWrong;
+        return snakeDidWrongMove;
     }
 
     public int getScore() {
         return score;
     }
 
-    public void setScore(int score) {
-        this.score = score;
+    public void setScore() {
+        this.score++;
+    }
+
+    public Pair<Integer, Integer> getSnakesHead() {
+        return snakesHead;
     }
 }
