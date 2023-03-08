@@ -4,10 +4,10 @@ import java.util.Queue;
 
 public class Field {
     private int[][] field;
-    public Pair<Integer, Integer> apple;
-    public boolean hasAnApple;
+    private Pair<Integer, Integer> apple;
+    private boolean hasAnApple;
 
-    Field() {
+    public Field() {
         this.field = new int[16][16];
         this.apple = new Pair<>(7, 11);
         hasAnApple = true;
@@ -47,5 +47,17 @@ public class Field {
 
     public int[][] getField() {
         return field;
+    }
+
+    public Pair<Integer, Integer> getApple() {
+        return apple;
+    }
+
+    public boolean hasAnApple() {
+        return hasAnApple;
+    }
+
+    public void setAnApple(boolean hasAnApple) {
+        this.hasAnApple = hasAnApple;
     }
 }

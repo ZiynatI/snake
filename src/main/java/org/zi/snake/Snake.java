@@ -6,8 +6,10 @@ public class Snake {
     private Queue<Pair<Integer, Integer>> snakesLocation;
     private Direction direction;
     private String input;
-    public int score;
-    public boolean snakeCameWrong = false;
+    private int score;
+    private boolean snakeCameWrong = false;
+
+
     Pair<Integer, Integer> snakesHead = new Pair<>(7, 5);
 
     public Snake() {
@@ -16,34 +18,30 @@ public class Snake {
         this.score = 0;
     }
 
-    public void move(Field field, String nextDir) {
+    public void move(Field field) {
         Pair<Integer, Integer> cellToMoveIn = new Pair<>(0, 0);
-        switch (nextDir) {
-            case "D":
-                this.direction = Direction.RIGHT;
+        switch (this.direction) {
+            case RIGHT:
                 cellToMoveIn = new Pair<>(snakesHead.left, snakesHead.right + 1);
                 break;
-            case "A":
-                this.direction = Direction.LEFT;
+            case LEFT:
                 cellToMoveIn = new Pair<>(snakesHead.left, snakesHead.right - 1);
                 break;
-            case "W":
-                this.direction = Direction.UP;
+            case UP:
                 cellToMoveIn = new Pair<>(snakesHead.left - 1, snakesHead.right);
                 break;
-            case "S":
-                this.direction = Direction.DOWN;
+            case DOWN:
                 cellToMoveIn = new Pair<>(snakesHead.left + 1, snakesHead.right);
                 break;
         }
-        if (snakeCameWrong(cellToMoveIn, field)) {
+        if (didWrongMove(cellToMoveIn, field)) {
             this.snakeCameWrong = true;
             return;
         }
         snakesLocation.offer(cellToMoveIn);
         snakesHead = cellToMoveIn;
-        if (field.apple.equals(snakesHead)) {
-            field.hasAnApple = false;
+        if (field.getApple().equals(snakesHead)) {
+            field.setAnApple(false);
             field.generateApple(snakesLocation);
             this.score++;
         } else {
@@ -51,13 +49,21 @@ public class Snake {
         }
     }
 
-    public boolean snakeCameWrong(Pair<Integer, Integer> cellToMoveIn, Field field) {
+    private boolean didWrongMove(Pair<Integer, Integer> cellToMoveIn, Field field) {
         if (this.snakesLocation.contains(cellToMoveIn)) {
             return true;
         } else if (cellToMoveIn.getLeft() > 15 || cellToMoveIn.getLeft() < 0 || cellToMoveIn.getRight() > 15 || cellToMoveIn.getRight() < 0) {
             return true;
         }
         return false;
+    }
+
+    public void setDirection(Direction direction) {
+        this.direction = direction;
+    }
+
+    public Direction getDirection() {
+        return direction;
     }
 
     public Queue<Pair<Integer, Integer>> getSnakesLocation() {
@@ -72,7 +78,15 @@ public class Snake {
         return result;
     }
 
-    public enum Direction {
-        LEFT, RIGHT, UP, DOWN;
+    public boolean didWrongMove() {
+        return snakeCameWrong;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
     }
 }
