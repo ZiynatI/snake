@@ -11,11 +11,15 @@ public class GameEngine {
         boolean gameOver = false;
         Field field = new Field();
         Scanner input = new Scanner(System.in);
-        Snake snake = new Snake(input);
+        Snake snake = new Snake();
         System.out.println(field.toString(snake));
         while (!gameOver) {
             Thread.sleep(1000);
-            snake.move(field);
+            String nextDir = "";
+            while (!(nextDir.equals("W") || nextDir.equals("A") || nextDir.equals("S") || nextDir.equals("D"))) {
+                nextDir = input.next();
+            }
+            snake.move(field, nextDir);
             System.out.println(field.toString(snake));
             if (snake.snakeCameWrong) {
                 gameOver = true;

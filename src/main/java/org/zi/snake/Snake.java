@@ -5,40 +5,36 @@ import java.util.*;
 public class Snake {
     private Deque<Pair<Integer, Integer>> snakesLocation;
     private Direction direction;
-    private Scanner input;
+    private String input;
     public int score;
     public boolean snakeCameWrong = false;
     Pair<Integer, Integer> snakesHead = new Pair<>(7, 5);
 
-    public Snake(Scanner input) {
+    public Snake() {
         this.snakesLocation = startingSnake();
         this.direction = Direction.RIGHT;
-        this.input = input;
         this.score = 0;
     }
 
-    public void move(Field field)  {
+    public void move(Field field, String nextDir) {
         Pair<Integer, Integer> cellToMoveIn = new Pair<>(0, 0);
-        if (this.input.hasNext()) {
-            String nextDir = this.input.next();
-            switch (nextDir) {
-                case "W":
-                    this.direction = Direction.RIGHT;
-                    cellToMoveIn = new Pair<>(snakesHead.left, snakesHead.right + 1);
-                    break;
-                case "A":
-                    this.direction = Direction.LEFT;
-                    cellToMoveIn = new Pair<>(snakesHead.left, snakesHead.right - 1);
-                    break;
-                case "S":
-                    this.direction = Direction.UP;
-                    cellToMoveIn = new Pair<>(snakesHead.left - 1, snakesHead.right);
-                    break;
-                case "D":
-                    this.direction = Direction.DOWN;
-                    cellToMoveIn = new Pair<>(snakesHead.left + 1, snakesHead.right);
-                    break;
-            }
+        switch (nextDir) {
+            case "D":
+                this.direction = Direction.RIGHT;
+                cellToMoveIn = new Pair<>(snakesHead.left, snakesHead.right + 1);
+                break;
+            case "A":
+                this.direction = Direction.LEFT;
+                cellToMoveIn = new Pair<>(snakesHead.left, snakesHead.right - 1);
+                break;
+            case "W":
+                this.direction = Direction.UP;
+                cellToMoveIn = new Pair<>(snakesHead.left - 1, snakesHead.right);
+                break;
+            case "S":
+                this.direction = Direction.DOWN;
+                cellToMoveIn = new Pair<>(snakesHead.left + 1, snakesHead.right);
+                break;
         }
         if (snakeCameWrong(cellToMoveIn, field)) {
             this.snakeCameWrong = true;
@@ -53,8 +49,6 @@ public class Snake {
         } else {
             snakesLocation.remove();
         }
-
-
     }
 
     public boolean snakeCameWrong(Pair<Integer, Integer> cellToMoveIn, Field field) {
