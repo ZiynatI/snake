@@ -14,7 +14,7 @@ public class GameEngine {
         Snake snake = new Snake();
         System.out.println(field.toString(snake));
         while (!gameOver) {
-            Thread.sleep(1000);
+            Thread.sleep(500);
             String nextDir = "";
             while (!(nextDir.equals("W") || nextDir.equals("A") || nextDir.equals("S") || nextDir.equals("D"))) {
                 nextDir = input.next();

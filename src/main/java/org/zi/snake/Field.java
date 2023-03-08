@@ -1,5 +1,7 @@
 package org.zi.snake;
 
+import java.util.Queue;
+
 public class Field {
     private int[][] field;
     public Pair<Integer, Integer> apple;
@@ -12,9 +14,13 @@ public class Field {
     }
 
 
-    public void generateApple() {
+    public void generateApple(Queue<Pair<Integer, Integer>> snakesLocation) {
         if (!hasAnApple) {
-            this.apple = new Pair<>((int) (Math.random() * 17), (int) (Math.random() * 17));
+            Pair<Integer, Integer> applesLocation;
+            do {
+                applesLocation = new Pair<>((int) (Math.random() * 17), (int) (Math.random() * 17));
+            } while (snakesLocation.contains(applesLocation));
+            this.apple = applesLocation;
             this.hasAnApple = true;
         }
     }

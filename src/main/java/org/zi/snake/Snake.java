@@ -3,7 +3,7 @@ package org.zi.snake;
 import java.util.*;
 
 public class Snake {
-    private Deque<Pair<Integer, Integer>> snakesLocation;
+    private Queue<Pair<Integer, Integer>> snakesLocation;
     private Direction direction;
     private String input;
     public int score;
@@ -41,10 +41,10 @@ public class Snake {
             return;
         }
         snakesLocation.offer(cellToMoveIn);
-        snakesHead = snakesLocation.getLast();
+        snakesHead = cellToMoveIn;
         if (field.apple.equals(snakesHead)) {
             field.hasAnApple = false;
-            field.generateApple();
+            field.generateApple(snakesLocation);
             this.score++;
         } else {
             snakesLocation.remove();
@@ -60,7 +60,7 @@ public class Snake {
         return false;
     }
 
-    public Deque<Pair<Integer, Integer>> getSnakesLocation() {
+    public Queue<Pair<Integer, Integer>> getSnakesLocation() {
         return this.snakesLocation;
     }
 
