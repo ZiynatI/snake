@@ -17,7 +17,7 @@ public class Snake {
         this.score = 0;
     }
 
-    public void move(Field field) {
+    public void move() {
         Pair<Integer, Integer> cellToMoveIn = new Pair<>(0, 0);
         switch (this.direction) {
             case RIGHT:

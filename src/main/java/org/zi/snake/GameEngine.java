@@ -17,7 +17,7 @@ public class GameEngine {
             int sleepingTime = 500;
             Thread.sleep(sleepingTime);
             directSnake(input, snake);
-            snake.move(field);
+            snake.move();
             if (snake.getSnakesHead().equals(field.getApple())) {
                 field.setAnApple(false);
                 field.generateApple(snake.getSnakesLocation());
