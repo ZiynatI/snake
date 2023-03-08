@@ -19,7 +19,6 @@ public class GameEngine {
             directSnake(input, snake);
             snake.move();
             if (snake.getSnakesHead().equals(field.getApple())) {
-                field.setAnApple(false);
                 field.generateApple(snake.getSnakesLocation());
                 snake.setScore();
             } else {
