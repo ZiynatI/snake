@@ -59,11 +59,8 @@ public class Field {
     }
 
     private boolean didWrongMove(Pair<Integer, Integer> cellToMoveIn) {
-        if (snake.contains(cellToMoveIn) || (cellToMoveIn.getLeft() > 15 || cellToMoveIn.getLeft() < 0 ||
-                cellToMoveIn.getRight() > 15 || cellToMoveIn.getRight() < 0)) {
-            return true;
-        }
-        return false;
+        return snake.contains(cellToMoveIn) || (cellToMoveIn.getLeft() > 15 || cellToMoveIn.getLeft() < 0 ||
+                cellToMoveIn.getRight() > 15 || cellToMoveIn.getRight() < 0);
     }
 
     public String toString() {
@@ -86,16 +83,19 @@ public class Field {
         return sb.toString();
     }
 
-    public Pair<Integer, Integer> getApple() {
-        return apple;
-    }
-
+    /**
+     * This method contributes to the appearance of the desired snake queue at the beginning of the game and is used
+     * only in the field constructor
+     */
     public static Deque<Pair<Integer, Integer>> generateSnake() {
         Deque<Pair<Integer, Integer>> result = new LinkedList<>();
         result.add(new Pair<>(7, 3));
         result.add(new Pair<>(7, 4));
         result.add(new Pair<>(7, 5));
         return result;
+    }
+    public Pair<Integer, Integer> getApple() {
+        return apple;
     }
 
     public void setDirection(SnakesDirection direction) {

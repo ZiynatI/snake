@@ -52,5 +52,4 @@ public class GameEngine {
             }
         } while (!(nextDir.equals("W") || nextDir.equals("A") || nextDir.equals("S") || nextDir.equals("D")));
     }
-
 }
