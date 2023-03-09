@@ -2,55 +2,51 @@ package org.zi.snake;
 
 import java.util.Scanner;
 
-import org.zi.snake.Field;
-import org.zi.snake.Snake;
-
 public class GameEngine {
-
-    public static void play() throws InterruptedException {
+    public void play() throws InterruptedException {
+        int score = 0;
         boolean gameOver = false;
         Field field = new Field();
         Scanner input = new Scanner(System.in);
-        Snake snake = new Snake();
-        System.out.println(field.toString(snake));
+        System.out.println(field.toString());
         while (!gameOver) {
             int sleepingTime = 500;
             Thread.sleep(sleepingTime);
-            directSnake(input, snake);
-            snake.move();
-            if (snake.getSnakesHead().equals(field.getApple())) {
-                field.generateApple(snake.getSnakesLocation());
-                snake.setScore();
+            directSnake(input, field);
+            field.moveSnake();
+            if (field.getSnakesHead().equals(field.getApple())) {
+                field.generateApple();
+                score++;
             } else {
-                snake.getSnakesLocation().remove();
+                field.getSnake().remove();
             }
-            System.out.println(field.toString(snake));
-            if (snake.didWrongMove()) {
+            System.out.println(field.toString());
+            if (field.hasSnakeDidWrongMove()) {
                 gameOver = true;
             }
         }
-        System.out.println("Game over\nScore:" + snake.getScore());
+        System.out.println("Game over\nScore:" + score);
     }
 
-    public static void directSnake(Scanner input, Snake snake) {
+    public static void directSnake(Scanner input, Field field) {
         String nextDir = "";
         do {
             nextDir = input.next();
             switch (nextDir) {
                 case "W": {
-                    snake.setDirection(Direction.UP);
+                    field.setDirection(SnakesDirection.UP);
                     break;
                 }
                 case "A": {
-                    snake.setDirection(Direction.LEFT);
+                    field.setDirection(SnakesDirection.LEFT);
                     break;
                 }
                 case "S": {
-                    snake.setDirection(Direction.DOWN);
+                    field.setDirection(SnakesDirection.DOWN);
                     break;
                 }
                 case "D": {
-                    snake.setDirection(Direction.RIGHT);
+                    field.setDirection(SnakesDirection.RIGHT);
                     break;
                 }
             }
