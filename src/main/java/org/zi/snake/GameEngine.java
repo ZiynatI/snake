@@ -3,53 +3,50 @@ package org.zi.snake;
 import java.util.Scanner;
 
 public class GameEngine {
+
+    private final int SLEEPING_TIME = 500;
+
+    private int score = 0;
+    private Field field = new Field();
+
     public void play() throws InterruptedException {
-        int score = 0;
         boolean gameOver = false;
-        Field field = new Field();
         Scanner input = new Scanner(System.in);
         System.out.println(field.toString());
         while (!gameOver) {
-            int sleepingTime = 500;
-            Thread.sleep(sleepingTime);
-            directSnake(input, field);
-            field.moveSnake();
-            if (field.getSnakesHead().equals(field.getApple())) {
-                field.generateApple();
-                score++;
-            } else {
-                field.getSnake().remove();
-            }
-            System.out.println(field.toString());
-            if (field.hasSnakeDidWrongMove()) {
-                gameOver = true;
-            }
+            long startTime = System.currentTimeMillis();
+            gameOver = playRound(input);
+            long endTime = System.currentTimeMillis();
+            Thread.sleep(SLEEPING_TIME - (endTime - startTime));
         }
         System.out.println("Game over\nScore:" + score);
     }
 
-    public static void directSnake(Scanner input, Field field) {
-        String nextDir = "";
+    private boolean playRound(Scanner input) {
+        SnakesDirection nextDirection = getNextDirection(input);
+        field.setDirection(nextDirection);
+        field.moveSnake();
+        if (field.ateApple()) {
+            score++;
+            field.setFalseAteApple();
+        }
+        System.out.println(field.toString());
+        return field.hasSnakeDidWrongMove();
+    }
+
+    public static SnakesDirection getNextDirection(Scanner input) {
         do {
-            nextDir = input.next();
+            String nextDir = input.next();
             switch (nextDir) {
-                case "W": {
-                    field.setDirection(SnakesDirection.UP);
-                    break;
-                }
-                case "A": {
-                    field.setDirection(SnakesDirection.LEFT);
-                    break;
-                }
-                case "S": {
-                    field.setDirection(SnakesDirection.DOWN);
-                    break;
-                }
-                case "D": {
-                    field.setDirection(SnakesDirection.RIGHT);
-                    break;
-                }
+                case "W":
+                    return SnakesDirection.UP;
+                case "A":
+                    return SnakesDirection.LEFT;
+                case "S":
+                    return SnakesDirection.DOWN;
+                case "D":
+                    return SnakesDirection.RIGHT;
             }
-        } while (!(nextDir.equals("W") || nextDir.equals("A") || nextDir.equals("S") || nextDir.equals("D")));
+        } while (true);
     }
 }

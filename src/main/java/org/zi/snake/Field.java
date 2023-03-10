@@ -1,74 +1,82 @@
 package org.zi.snake;
 
-import java.util.Deque;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Random;
 
 public class Field {
-    private final int[][] field;
+    private final int fieldSize = 16;
+
     private Pair<Integer, Integer> apple;
+
     private Queue<Pair<Integer, Integer>> snake;
-    private SnakesDirection direction;
-    private boolean snakeDidWrongMove;
     private Pair<Integer, Integer> snakesHead;
 
+    private SnakesDirection direction;
+
+    private boolean snakeDidWrongMove;
+
+    private boolean ateApple = false;
+    private Random rnd;
+
     public Field() {
-        this.field = new int[16][16];
         this.apple = new Pair<>(7, 11);
         this.snake = generateSnake();
         this.snakesHead = new Pair<>(7, 5);
+        rnd = new Random();
     }
 
-    public Pair<Integer, Integer> findCellToMoveIn() {
-        Pair<Integer, Integer> cellToMoveIn = new Pair<>(0, 0);
+    private Pair<Integer, Integer> getNextHead() {
         switch (this.direction) {
             case RIGHT:
-                cellToMoveIn = new Pair<>(snakesHead.left, snakesHead.right + 1);
-                break;
+                return new Pair<>(snakesHead.left, snakesHead.right + 1);
             case LEFT:
-                cellToMoveIn = new Pair<>(snakesHead.left, snakesHead.right - 1);
-                break;
+                return new Pair<>(snakesHead.left, snakesHead.right - 1);
             case UP:
-                cellToMoveIn = new Pair<>(snakesHead.left - 1, snakesHead.right);
-                break;
+                return new Pair<>(snakesHead.left - 1, snakesHead.right);
             case DOWN:
-                cellToMoveIn = new Pair<>(snakesHead.left + 1, snakesHead.right);
-                break;
+                return new Pair<>(snakesHead.left + 1, snakesHead.right);
         }
-        return cellToMoveIn;
+        return null;
     }
 
     public void moveSnake() {
-        Pair<Integer, Integer> cellToMoveIn = findCellToMoveIn();
+        Pair<Integer, Integer> cellToMoveIn = getNextHead();
         if (didWrongMove(cellToMoveIn)) {
             this.snakeDidWrongMove = true;
             return;
         }
         snake.offer(cellToMoveIn);
+        if (snakesHead.equals(apple)) {
+            this.generateApple();
+            this.ateApple = true;
+        } else {
+            snake.remove();
+        }
         snakesHead = cellToMoveIn;
     }
 
-    public void generateApple() {
+    private void generateApple() {
         Pair<Integer, Integer> applesLocation;
         do {
-            applesLocation = new Pair<>((int) (Math.random() * 17), (int) (Math.random() * 17));
+            applesLocation = new Pair<>(rnd.nextInt(fieldSize), rnd.nextInt(fieldSize));
         } while (snake.contains(applesLocation));
         this.apple = applesLocation;
-
-
     }
 
     private boolean didWrongMove(Pair<Integer, Integer> cellToMoveIn) {
-        return snake.contains(cellToMoveIn) || (cellToMoveIn.getLeft() > 15 || cellToMoveIn.getLeft() < 0 ||
-                cellToMoveIn.getRight() > 15 || cellToMoveIn.getRight() < 0);
+        return snake.contains(cellToMoveIn) || (cellToMoveIn.getLeft() >= fieldSize ||
+                cellToMoveIn.getLeft() < 0 ||
+                cellToMoveIn.getRight() >= fieldSize ||
+                cellToMoveIn.getRight() < 0);
     }
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("__________________\n");
-        for (int i = 0; i < field.length; i++) {
+        for (int i = 0; i < fieldSize; i++) {
             sb.append("|");
-            for (int j = 0; j < field[i].length; j++) {
+            for (int j = 0; j < fieldSize; j++) {
                 if (new Pair<>(i, j).equals(apple)) {
                     sb.append("A");
                 } else if (snake.contains(new Pair<>(i, j))) {
@@ -87,19 +95,20 @@ public class Field {
      * This method contributes to the appearance of the desired snake queue at the beginning of the game and is used
      * only in the field constructor
      */
-    public static Deque<Pair<Integer, Integer>> generateSnake() {
-        Deque<Pair<Integer, Integer>> result = new LinkedList<>();
+    public static Queue<Pair<Integer, Integer>> generateSnake() {
+        Queue<Pair<Integer, Integer>> result = new LinkedList<>();
         result.add(new Pair<>(7, 3));
         result.add(new Pair<>(7, 4));
         result.add(new Pair<>(7, 5));
         return result;
     }
-    public Pair<Integer, Integer> getApple() {
-        return apple;
-    }
 
     public void setDirection(SnakesDirection direction) {
         this.direction = direction;
+    }
+
+    public Pair<Integer, Integer> getApple() {
+        return apple;
     }
 
     public Queue<Pair<Integer, Integer>> getSnake() {
@@ -114,4 +123,13 @@ public class Field {
     public boolean hasSnakeDidWrongMove() {
         return snakeDidWrongMove;
     }
+
+    public boolean ateApple() {
+        return ateApple;
+    }
+
+    public void setFalseAteApple() {
+        this.ateApple = false;
+    }
+
 }
