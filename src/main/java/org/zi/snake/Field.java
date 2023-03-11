@@ -40,21 +40,30 @@ public class Field {
         return null;
     }
 
-    public void moveSnake() {
+    /**
+     * returns true if snake eat apple ad false if not
+     */
+    public boolean moveSnakeToEatApple() {
         Pair<Integer, Integer> cellToMoveIn = getNextHead();
         if (didWrongMove(cellToMoveIn)) {
             this.snakeDidWrongMove = true;
-            return;
+            return false;
         }
+        snakesHead = cellToMoveIn;
         snake.offer(cellToMoveIn);
+        boolean ateApple ;
         if (snakesHead.equals(apple)) {
             this.generateApple();
             this.ateApple = true;
+            ateApple = true;
         } else {
             snake.remove();
+            ateApple = false;
         }
         snakesHead = cellToMoveIn;
+        return ateApple;
     }
+
 
     private void generateApple() {
         Pair<Integer, Integer> applesLocation;
@@ -71,7 +80,7 @@ public class Field {
                 cellToMoveIn.getRight() < 0);
     }
 
-    public String toString() {
+    public String printField() {
         StringBuilder sb = new StringBuilder();
         sb.append("__________________\n");
         for (int i = 0; i < fieldSize; i++) {
@@ -131,5 +140,10 @@ public class Field {
     public void setFalseAteApple() {
         this.ateApple = false;
     }
+
+    public int getFieldSize() {
+        return fieldSize;
+    }
+
 
 }

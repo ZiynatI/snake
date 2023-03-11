@@ -12,12 +12,12 @@ public class GameEngine {
     public void play() throws InterruptedException {
         boolean gameOver = false;
         Scanner input = new Scanner(System.in);
-        System.out.println(field.toString());
+        System.out.println(field.printField());
         while (!gameOver) {
             long startTime = System.currentTimeMillis();
             gameOver = playRound(input);
             long endTime = System.currentTimeMillis();
-            Thread.sleep(SLEEPING_TIME - (endTime - startTime));
+            Thread.sleep(SLEEPING_TIME /*-(endTime - startTime)*/);
         }
         System.out.println("Game over\nScore:" + score);
     }
@@ -25,12 +25,11 @@ public class GameEngine {
     private boolean playRound(Scanner input) {
         SnakesDirection nextDirection = getNextDirection(input);
         field.setDirection(nextDirection);
-        field.moveSnake();
-        if (field.ateApple()) {
+        boolean ateApple = field.moveSnakeToEatApple();
+        if (ateApple) {
             score++;
-            field.setFalseAteApple();
         }
-        System.out.println(field.toString());
+        System.out.println(field.printField());
         return field.hasSnakeDidWrongMove();
     }
 
@@ -49,4 +48,5 @@ public class GameEngine {
             }
         } while (true);
     }
+
 }
