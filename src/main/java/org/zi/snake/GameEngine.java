@@ -1,7 +1,6 @@
 package org.zi.snake;
 
-import java.util.Locale;
-import java.util.Scanner;
+import java.util.*;
 
 public class GameEngine {
 
@@ -24,7 +23,7 @@ public class GameEngine {
     }
 
     private boolean playRound(Scanner input) {
-        SnakesDirection nextDirection = getNextDirection(input);
+        SnakesDirection nextDirection = getNextDirectionNew(input);
         field.setDirection(nextDirection);
         boolean ateApple = field.moveSnakeToEatApple();
         if (ateApple) {
@@ -34,7 +33,7 @@ public class GameEngine {
         return field.hasSnakeDidWrongMove();
     }
 
-    public SnakesDirection getNextDirection(Scanner input) {
+    private SnakesDirection getNextDirection(Scanner input) {
         String nextDir;
         switch (field.getDirection()) {
             case UP: {
@@ -93,7 +92,28 @@ public class GameEngine {
         return null;
     }
 
-    public String printField() {
+    private SnakesDirection getNextDirectionNew(Scanner input) {
+        Pair<String, SnakesDirection> up = new Pair<>("W", SnakesDirection.UP);
+        Pair<String, SnakesDirection> left = new Pair<>("A", SnakesDirection.LEFT);
+        Pair<String, SnakesDirection> down = new Pair<>("S", SnakesDirection.DOWN);
+        Pair<String, SnakesDirection> right = new Pair<>("D", SnakesDirection.RIGHT);
+        Map<SnakesDirection, List<Pair<String, SnakesDirection>>> mapOfPossibleDirections = new HashMap<>();
+        mapOfPossibleDirections.put(SnakesDirection.UP, Arrays.asList(up, left, right));
+        mapOfPossibleDirections.put(SnakesDirection.DOWN, Arrays.asList(down, left, right));
+        mapOfPossibleDirections.put(SnakesDirection.RIGHT, Arrays.asList(right, up, down));
+        mapOfPossibleDirections.put(SnakesDirection.LEFT, Arrays.asList(left, up, down));
+        while (true) {
+            String nextDir = input.next().toUpperCase();
+            for (Pair<String, SnakesDirection> inputStAndDir : mapOfPossibleDirections.get(field.getDirection())) {
+                if (inputStAndDir.left.equals(nextDir)) {
+                    return inputStAndDir.right;
+                }
+            }
+        }
+    }
+
+
+    private String printField() {
         StringBuilder sb = new StringBuilder();
         sb.append("__________________\n");
         for (int i = 0; i < field.getFieldSize(); i++) {
