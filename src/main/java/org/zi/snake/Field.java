@@ -16,7 +16,6 @@ public class Field {
 
     private boolean snakeDidWrongMove;
 
-    private boolean ateApple = false;
     private Random rnd;
 
     public Field() {
@@ -24,6 +23,7 @@ public class Field {
         this.snake = generateSnake();
         this.snakesHead = new Pair<>(7, 5);
         rnd = new Random();
+        this.direction=SnakesDirection.RIGHT;
     }
 
     private Pair<Integer, Integer> getNextHead() {
@@ -51,10 +51,9 @@ public class Field {
         }
         snakesHead = cellToMoveIn;
         snake.offer(cellToMoveIn);
-        boolean ateApple ;
+        boolean ateApple;
         if (snakesHead.equals(apple)) {
             this.generateApple();
-            this.ateApple = true;
             ateApple = true;
         } else {
             snake.remove();
@@ -80,31 +79,12 @@ public class Field {
                 cellToMoveIn.getRight() < 0);
     }
 
-    public String printField() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("__________________\n");
-        for (int i = 0; i < fieldSize; i++) {
-            sb.append("|");
-            for (int j = 0; j < fieldSize; j++) {
-                if (new Pair<>(i, j).equals(apple)) {
-                    sb.append("A");
-                } else if (snake.contains(new Pair<>(i, j))) {
-                    sb.append("O");
-                } else {
-                    sb.append(" ");
-                }
-            }
-            sb.append("|\n");
-        }
-        sb.append("__________________");
-        return sb.toString();
-    }
 
     /**
      * This method contributes to the appearance of the desired snake queue at the beginning of the game and is used
      * only in the field constructor
      */
-    public static Queue<Pair<Integer, Integer>> generateSnake() {
+    private static Queue<Pair<Integer, Integer>> generateSnake() {
         Queue<Pair<Integer, Integer>> result = new LinkedList<>();
         result.add(new Pair<>(7, 3));
         result.add(new Pair<>(7, 4));
@@ -124,26 +104,15 @@ public class Field {
         return snake;
     }
 
-
-    public Pair<Integer, Integer> getSnakesHead() {
-        return snakesHead;
-    }
-
     public boolean hasSnakeDidWrongMove() {
         return snakeDidWrongMove;
-    }
-
-    public boolean ateApple() {
-        return ateApple;
-    }
-
-    public void setFalseAteApple() {
-        this.ateApple = false;
     }
 
     public int getFieldSize() {
         return fieldSize;
     }
 
-
+    public SnakesDirection getDirection() {
+        return direction;
+    }
 }
