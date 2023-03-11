@@ -9,6 +9,7 @@ public class GameEngine {
     private int score = 0;
     private Field field = new Field();
 
+    private final Map<SnakesDirection, List<Pair<String, SnakesDirection>>> mapOfPossibleDirections= getMapOfPossibleDirections();
     public void play() throws InterruptedException {
         boolean gameOver = false;
         Scanner input = new Scanner(System.in);
@@ -34,7 +35,6 @@ public class GameEngine {
     }
 
     private SnakesDirection getNextDirectionNew(Scanner input) {
-        Map<SnakesDirection, List<Pair<String, SnakesDirection>>> mapOfPossibleDirections = getMapOfPossibleDirections();
         while (true) {
             String nextDir = input.next().toUpperCase();
             for (Pair<String, SnakesDirection> inputStAndDir : mapOfPossibleDirections.get(field.getDirection())) {
@@ -45,7 +45,7 @@ public class GameEngine {
         }
     }
 
-    private Map<SnakesDirection, List<Pair<String, SnakesDirection>>> getMapOfPossibleDirections() {
+    private static Map<SnakesDirection, List<Pair<String, SnakesDirection>>> getMapOfPossibleDirections() {
         Pair<String, SnakesDirection> up = new Pair<>("W", SnakesDirection.UP);
         Pair<String, SnakesDirection> left = new Pair<>("A", SnakesDirection.LEFT);
         Pair<String, SnakesDirection> down = new Pair<>("S", SnakesDirection.DOWN);
