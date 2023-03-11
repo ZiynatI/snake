@@ -33,65 +33,6 @@ public class GameEngine {
         return field.hasSnakeDidWrongMove();
     }
 
-    private SnakesDirection getNextDirection(Scanner input) {
-        String nextDir;
-        switch (field.getDirection()) {
-            case UP: {
-                while (true) {
-                    nextDir = input.next().toUpperCase();
-                    switch (nextDir) {
-                        case "W":
-                            return SnakesDirection.UP;
-                        case "A":
-                            return SnakesDirection.LEFT;
-                        case "D":
-                            return SnakesDirection.RIGHT;
-                    }
-                }
-            }
-            case DOWN: {
-                while (true) {
-                    nextDir = input.next().toUpperCase();
-                    switch (nextDir) {
-                        case "A":
-                            return SnakesDirection.LEFT;
-                        case "S":
-                            return SnakesDirection.DOWN;
-                        case "D":
-                            return SnakesDirection.RIGHT;
-                    }
-                }
-            }
-            case LEFT: {
-                while (true) {
-                    nextDir = input.next().toUpperCase();
-                    switch (nextDir) {
-                        case "A":
-                            return SnakesDirection.LEFT;
-                        case "W":
-                            return SnakesDirection.UP;
-                        case "S":
-                            return SnakesDirection.DOWN;
-                    }
-                }
-            }
-            case RIGHT: {
-                while (true) {
-                    nextDir = input.next().toUpperCase();
-                    switch (nextDir) {
-                        case "W":
-                            return SnakesDirection.UP;
-                        case "S":
-                            return SnakesDirection.DOWN;
-                        case "D":
-                            return SnakesDirection.RIGHT;
-                    }
-                }
-            }
-        }
-        return null;
-    }
-
     private SnakesDirection getNextDirectionNew(Scanner input) {
         Map<SnakesDirection, List<Pair<String, SnakesDirection>>> mapOfPossibleDirections = getMapOfPossibleDirections();
         while (true) {
