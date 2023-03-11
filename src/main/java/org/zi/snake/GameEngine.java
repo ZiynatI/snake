@@ -93,15 +93,7 @@ public class GameEngine {
     }
 
     private SnakesDirection getNextDirectionNew(Scanner input) {
-        Pair<String, SnakesDirection> up = new Pair<>("W", SnakesDirection.UP);
-        Pair<String, SnakesDirection> left = new Pair<>("A", SnakesDirection.LEFT);
-        Pair<String, SnakesDirection> down = new Pair<>("S", SnakesDirection.DOWN);
-        Pair<String, SnakesDirection> right = new Pair<>("D", SnakesDirection.RIGHT);
-        Map<SnakesDirection, List<Pair<String, SnakesDirection>>> mapOfPossibleDirections = new HashMap<>();
-        mapOfPossibleDirections.put(SnakesDirection.UP, Arrays.asList(up, left, right));
-        mapOfPossibleDirections.put(SnakesDirection.DOWN, Arrays.asList(down, left, right));
-        mapOfPossibleDirections.put(SnakesDirection.RIGHT, Arrays.asList(right, up, down));
-        mapOfPossibleDirections.put(SnakesDirection.LEFT, Arrays.asList(left, up, down));
+        Map<SnakesDirection, List<Pair<String, SnakesDirection>>> mapOfPossibleDirections = getMapOfPossibleDirections();
         while (true) {
             String nextDir = input.next().toUpperCase();
             for (Pair<String, SnakesDirection> inputStAndDir : mapOfPossibleDirections.get(field.getDirection())) {
@@ -112,6 +104,18 @@ public class GameEngine {
         }
     }
 
+    private Map<SnakesDirection, List<Pair<String, SnakesDirection>>> getMapOfPossibleDirections() {
+        Pair<String, SnakesDirection> up = new Pair<>("W", SnakesDirection.UP);
+        Pair<String, SnakesDirection> left = new Pair<>("A", SnakesDirection.LEFT);
+        Pair<String, SnakesDirection> down = new Pair<>("S", SnakesDirection.DOWN);
+        Pair<String, SnakesDirection> right = new Pair<>("D", SnakesDirection.RIGHT);
+        Map<SnakesDirection, List<Pair<String, SnakesDirection>>> mapOfPossibleDirections = new HashMap<>();
+        mapOfPossibleDirections.put(SnakesDirection.UP, Arrays.asList(up, left, right));
+        mapOfPossibleDirections.put(SnakesDirection.DOWN, Arrays.asList(down, left, right));
+        mapOfPossibleDirections.put(SnakesDirection.RIGHT, Arrays.asList(right, up, down));
+        mapOfPossibleDirections.put(SnakesDirection.LEFT, Arrays.asList(left, up, down));
+        return mapOfPossibleDirections;
+    }
 
     private String printField() {
         StringBuilder sb = new StringBuilder();
