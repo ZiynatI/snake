@@ -6,37 +6,37 @@ import java.util.Scanner;
 
 public class DirectionThread extends Thread {
     private Scanner input = new Scanner(System.in);
-    private Map<String, SnakesDirection> inputToDirMap = inputToDir();
-    private GameEngine gameEngine;
+    private Map<String, Direction> inputToDirMap = inputToDir();
+    private InputCallbackHandler inputCallbackHandler;
 
-    public DirectionThread(GameEngine gameEngine) {
-        this.gameEngine = gameEngine;
+    public DirectionThread(InputCallbackHandler inputCallbackHandler) {
+        this.inputCallbackHandler = inputCallbackHandler;
     }
 
     @Override
     public void run() {
         while (true) {
-            gameEngine.getField().setDirection(getNextDirection(input));
+            inputCallbackHandler.setNextDirection(getNextDirection(input));
         }
     }
 
 
-    private SnakesDirection getNextDirection(Scanner input) {
+    private Direction getNextDirection(Scanner input) {
         do {
             String nextDir = input.next().toUpperCase();
-            SnakesDirection nextProbDir = inputToDirMap.get(nextDir);
-            if (gameEngine.getField().getDirection().getAllowedDirections().contains(nextProbDir)) {
+            Direction nextProbDir = inputToDirMap.get(nextDir);
+            if (inputCallbackHandler.getCurrentDirection().getAllowedDirections().contains(nextProbDir)) {
                 return nextProbDir;
             }
         } while (true);
     }
 
-    private Map<String, SnakesDirection> inputToDir() {
-        Map<String, SnakesDirection> inputToDirMap = new HashMap<>();
-        inputToDirMap.put("W", SnakesDirection.UP);
-        inputToDirMap.put("A", SnakesDirection.LEFT);
-        inputToDirMap.put("S", SnakesDirection.DOWN);
-        inputToDirMap.put("D", SnakesDirection.RIGHT);
+    private Map<String, Direction> inputToDir() {
+        Map<String, Direction> inputToDirMap = new HashMap<>();
+        inputToDirMap.put("W", Direction.UP);
+        inputToDirMap.put("A", Direction.LEFT);
+        inputToDirMap.put("S", Direction.DOWN);
+        inputToDirMap.put("D", Direction.RIGHT);
         return inputToDirMap;
 
     }

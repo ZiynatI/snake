@@ -12,7 +12,7 @@ public class Field {
     private Queue<Pair<Integer, Integer>> snake;
     private Pair<Integer, Integer> snakesHead;
 
-    private SnakesDirection direction;
+    private Direction direction;
 
     private boolean snakeDidWrongMove;
 
@@ -23,7 +23,7 @@ public class Field {
         this.snake = generateSnake();
         this.snakesHead = new Pair<>(7, 5);
         rnd = new Random();
-        this.direction = SnakesDirection.RIGHT;
+        this.direction = Direction.RIGHT;
     }
 
     private Pair<Integer, Integer> getNextHead() {
@@ -92,7 +92,7 @@ public class Field {
         return result;
     }
 
-    public void setDirection(SnakesDirection direction) {
+    public void setDirection(Direction direction) {
         this.direction = direction;
     }
 
@@ -112,7 +112,7 @@ public class Field {
         return fieldSize;
     }
 
-    public SnakesDirection getDirection() {
+    public Direction getDirection() {
         return direction;
     }
 }

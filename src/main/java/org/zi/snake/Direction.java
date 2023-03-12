@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public enum SnakesDirection {
+public enum Direction {
     LEFT, RIGHT, UP, DOWN;
 
-    private List<SnakesDirection> allowedDirections = null;
+    private List<Direction> allowedDirections = null;
 
-    public List<SnakesDirection> getAllowedDirections() {
+    public List<Direction> getAllowedDirections() {
         if (allowedDirections == null) {
-            List<SnakesDirection> tmp = new ArrayList<>(Arrays.asList(SnakesDirection.values()));
+            List<Direction> tmp = new ArrayList<>(Arrays.asList(Direction.values()));
             switch (this) {
                 case UP:
                     tmp.remove(DOWN);

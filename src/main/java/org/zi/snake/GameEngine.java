@@ -1,8 +1,6 @@
 package org.zi.snake;
 
-import java.util.*;
-
-public class GameEngine {
+public class GameEngine implements InputCallbackHandler {
 
     private final int SLEEPING_TIME = 1000;
 
@@ -55,7 +53,17 @@ public class GameEngine {
         return sb.toString();
     }
 
-    public void setDirection(SnakesDirection direction) {
+    public void setDirection(Direction direction) {
+        field.setDirection(direction);
+    }
+
+    @Override
+    public Direction getCurrentDirection() {
+        return field.getDirection();
+    }
+
+    @Override
+    public void setNextDirection(Direction direction) {
         field.setDirection(direction);
     }
 }
