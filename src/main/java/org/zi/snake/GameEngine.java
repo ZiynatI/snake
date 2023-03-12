@@ -4,7 +4,7 @@ import java.util.*;
 
 public class GameEngine {
 
-    private final int SLEEPING_TIME = 500;
+    private final int SLEEPING_TIME = 1000;
 
     private int score = 0;
 
@@ -13,8 +13,6 @@ public class GameEngine {
     }
 
     private Field field = new Field();
-
-    private final Map<SnakesDirection, List<Pair<String, SnakesDirection>>> mapOfPossibleDirections = getMapOfPossibleDirections();
 
     public void play() throws InterruptedException {
         boolean gameOver = false;
@@ -37,19 +35,6 @@ public class GameEngine {
         return field.hasSnakeDidWrongMove();
     }
 
-    private static Map<SnakesDirection, List<Pair<String, SnakesDirection>>> getMapOfPossibleDirections() {
-        Pair<String, SnakesDirection> up = new Pair<>("W", SnakesDirection.UP);
-        Pair<String, SnakesDirection> left = new Pair<>("A", SnakesDirection.LEFT);
-        Pair<String, SnakesDirection> down = new Pair<>("S", SnakesDirection.DOWN);
-        Pair<String, SnakesDirection> right = new Pair<>("D", SnakesDirection.RIGHT);
-        Map<SnakesDirection, List<Pair<String, SnakesDirection>>> mapOfPossibleDirections = new HashMap<>();
-        mapOfPossibleDirections.put(SnakesDirection.UP, Arrays.asList(up, left, right));
-        mapOfPossibleDirections.put(SnakesDirection.DOWN, Arrays.asList(down, left, right));
-        mapOfPossibleDirections.put(SnakesDirection.RIGHT, Arrays.asList(right, up, down));
-        mapOfPossibleDirections.put(SnakesDirection.LEFT, Arrays.asList(left, up, down));
-        return mapOfPossibleDirections;
-    }
-
     private String printField() {
         StringBuilder sb = new StringBuilder();
         sb.append("__________________\n");
@@ -70,4 +55,7 @@ public class GameEngine {
         return sb.toString();
     }
 
+    public void setDirection(SnakesDirection direction) {
+        field.setDirection(direction);
+    }
 }

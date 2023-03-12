@@ -4,7 +4,7 @@ public class Main {
     public static void main(String[] args) throws InterruptedException {
 
         GameEngine gameEngine = new GameEngine();
-        Thread directionThread = new DirectionThread(gameEngine.getField());
+        Thread directionThread = new DirectionThread(gameEngine);
         directionThread.start();
         gameEngine.play();
 

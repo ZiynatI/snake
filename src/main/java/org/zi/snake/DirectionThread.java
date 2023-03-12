@@ -7,23 +7,25 @@ import java.util.Scanner;
 public class DirectionThread extends Thread {
     private Scanner input = new Scanner(System.in);
     private Map<String, SnakesDirection> inputToDirMap = inputToDir();
-    private Field field;
+    private GameEngine gameEngine;
 
-    DirectionThread(Field field) {
-        this.field = field;
+    public DirectionThread(GameEngine gameEngine) {
+        this.gameEngine = gameEngine;
     }
 
     @Override
     public void run() {
-        field.setDirection(getNextDirection(input, field));
+        while (true) {
+            gameEngine.getField().setDirection(getNextDirection(input));
+        }
     }
 
 
-    private SnakesDirection getNextDirection(Scanner input, Field field) {
+    private SnakesDirection getNextDirection(Scanner input) {
         do {
             String nextDir = input.next().toUpperCase();
             SnakesDirection nextProbDir = inputToDirMap.get(nextDir);
-            if (field.getDirection().getAllowedDirections().contains(nextProbDir)) {
+            if (gameEngine.getField().getDirection().getAllowedDirections().contains(nextProbDir)) {
                 return nextProbDir;
             }
         } while (true);
