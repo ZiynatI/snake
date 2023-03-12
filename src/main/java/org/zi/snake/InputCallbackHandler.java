@@ -6,4 +6,7 @@ public interface InputCallbackHandler {
 
     void setNextDirection(Direction direction);
 
+    void hasChagedDirThisTime();
+
+    boolean ifSetDirThisTime();
 }

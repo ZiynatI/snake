@@ -6,8 +6,9 @@ import java.util.Scanner;
 
 public class DirectionThread extends Thread {
     private Scanner input = new Scanner(System.in);
-    private Map<String, Direction> inputToDirMap = inputToDir();
+    private Map<String, Direction> inputToDirMap = turnInputToDir();
     private InputCallbackHandler inputCallbackHandler;
+
 
     public DirectionThread(InputCallbackHandler inputCallbackHandler) {
         this.inputCallbackHandler = inputCallbackHandler;
@@ -16,7 +17,9 @@ public class DirectionThread extends Thread {
     @Override
     public void run() {
         while (true) {
-            inputCallbackHandler.setNextDirection(getNextDirection(input));
+            if (!inputCallbackHandler.ifSetDirThisTime()) {
+                inputCallbackHandler.setNextDirection(getNextDirection(input));
+            }
         }
     }
 
@@ -26,12 +29,13 @@ public class DirectionThread extends Thread {
             String nextDir = input.next().toUpperCase();
             Direction nextProbDir = inputToDirMap.get(nextDir);
             if (inputCallbackHandler.getCurrentDirection().getAllowedDirections().contains(nextProbDir)) {
+                inputCallbackHandler.hasChagedDirThisTime();
                 return nextProbDir;
             }
         } while (true);
     }
 
-    private Map<String, Direction> inputToDir() {
+    private Map<String, Direction> turnInputToDir() {
         Map<String, Direction> inputToDirMap = new HashMap<>();
         inputToDirMap.put("W", Direction.UP);
         inputToDirMap.put("A", Direction.LEFT);

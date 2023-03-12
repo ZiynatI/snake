@@ -7,12 +7,14 @@ public class GameEngine implements InputCallbackHandler {
     private int score = 0;
 
     private Field field = new Field();
+    private boolean changedDirIThisMove;
 
     public void play() throws InterruptedException {
         boolean gameOver = false;
         System.out.println(printField());
         while (!gameOver) {
             long startTime = System.currentTimeMillis();
+            changedDirIThisMove = false;
             gameOver = playRound();
             long endTime = System.currentTimeMillis();
             Thread.sleep(SLEEPING_TIME - (endTime - startTime));
@@ -22,6 +24,7 @@ public class GameEngine implements InputCallbackHandler {
 
     private boolean playRound() {
         boolean ateApple = field.moveSnakeToEatApple();
+
         if (ateApple) {
             score++;
         }
@@ -57,5 +60,15 @@ public class GameEngine implements InputCallbackHandler {
     @Override
     public void setNextDirection(Direction direction) {
         field.setDirection(direction);
+    }
+
+    @Override
+    public void hasChagedDirThisTime() {
+        this.changedDirIThisMove = true;
+    }
+
+    @Override
+    public boolean ifSetDirThisTime() {
+        return changedDirIThisMove;
     }
 }
