@@ -23,7 +23,7 @@ public class Field {
         this.snake = generateSnake();
         this.snakesHead = new Pair<>(7, 5);
         rnd = new Random();
-        this.direction=SnakesDirection.RIGHT;
+        this.direction = SnakesDirection.RIGHT;
     }
 
     private Pair<Integer, Integer> getNextHead() {
