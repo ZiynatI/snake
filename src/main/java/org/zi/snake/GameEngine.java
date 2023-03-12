@@ -2,13 +2,9 @@ package org.zi.snake;
 
 public class GameEngine implements InputCallbackHandler {
 
-    private final int SLEEPING_TIME = 1000;
+    private final int SLEEPING_TIME = 2000;
 
     private int score = 0;
-
-    public Field getField() {
-        return field;
-    }
 
     private Field field = new Field();
 
@@ -51,10 +47,6 @@ public class GameEngine implements InputCallbackHandler {
         }
         sb.append("__________________");
         return sb.toString();
-    }
-
-    public void setDirection(Direction direction) {
-        field.setDirection(direction);
     }
 
     @Override
