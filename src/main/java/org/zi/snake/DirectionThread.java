@@ -17,20 +17,12 @@ public class DirectionThread extends Thread {
     @Override
     public void run() {
         while (true) {
-            inputCallbackHandler.setNextDirection(getNextDirection(input));
-        }
-
-    }
-
-
-    private Direction getNextDirection(Scanner input) {
-        do {
             String nextDir = input.next().toUpperCase();
             Direction nextProbDir = inputToDirMap.get(nextDir);
             if (inputCallbackHandler.getCurrentDirection().getAllowedDirections().contains(nextProbDir)) {
-                return nextProbDir;
+                inputCallbackHandler.setNextDirection(nextProbDir);
             }
-        } while (true);
+        }
     }
 
     private Map<String, Direction> turnInputToDir() {
