@@ -2,7 +2,7 @@ package org.zi.snake;
 
 public class GameEngine implements InputCallbackHandler {
 
-    private final int SLEEPING_TIME = 2000;
+    private final int SLEEPING_TIME = 1000;
 
     private int score = 0;
 
@@ -16,7 +16,7 @@ public class GameEngine implements InputCallbackHandler {
             long startTime = System.currentTimeMillis();
             gameOver = playRound();
             long endTime = System.currentTimeMillis();
-            Thread.sleep(SLEEPING_TIME - (endTime - startTime));
+            Thread.sleep(SLEEPING_TIME /*- (endTime - startTime)*/);
         }
         System.out.println("Game over\nScore:" + score);
     }
