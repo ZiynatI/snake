@@ -29,13 +29,13 @@ public class Field {
     private Pair<Integer, Integer> getNextHead() {
         switch (this.direction) {
             case RIGHT:
-                return new Pair<>(snakesHead.left, snakesHead.right + 1);
+                return new Pair<>(snakesHead.getLeft(), snakesHead.getRight() + 1);
             case LEFT:
-                return new Pair<>(snakesHead.left, snakesHead.right - 1);
+                return new Pair<>(snakesHead.getLeft(), snakesHead.getRight() - 1);
             case UP:
-                return new Pair<>(snakesHead.left - 1, snakesHead.right);
+                return new Pair<>(snakesHead.getLeft() - 1, snakesHead.getRight());
             case DOWN:
-                return new Pair<>(snakesHead.left + 1, snakesHead.right);
+                return new Pair<>(snakesHead.getLeft() + 1, snakesHead.getRight());
         }
         return null;
     }
