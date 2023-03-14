@@ -41,7 +41,7 @@ public class Field {
     }
 
     /**
-     * returns true if snake eat apple ad false if not
+     * returns true if snake eat apple and false if not
      */
     public boolean moveSnakeToEatApple() {
         Pair<Integer, Integer> cellToMoveIn = getNextHead();
