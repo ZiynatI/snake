@@ -6,12 +6,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class FieldTest {
 
+private Field field;
     @Test
     void moveSnakeToEatApple() {
     }
 
     @Test
     void setDirection() {
+        field.setDirection(Direction.UP);
     }
 
     @Test
