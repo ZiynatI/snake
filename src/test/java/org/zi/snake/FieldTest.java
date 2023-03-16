@@ -34,4 +34,5 @@ class FieldTest {
         field.moveSnakeToEatApple();
         Assertions.assertFalse(field.hasSnakeDidWrongMove());
     }
+
 }
