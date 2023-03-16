@@ -1,38 +1,37 @@
 package org.zi.snake;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class FieldTest {
 
-private Field field;
+    private Field field = new Field();
+
     @Test
-    void moveSnakeToEatApple() {
+    void appleShouldBeHereAtBeginning() {
+        Pair<Integer, Integer> pair = new Pair<>(7, 11);
+        Pair<Integer, Integer> actualPair = field.getApple();
+        Assertions.assertEquals(pair.getLeft(), actualPair.getLeft());
+        Assertions.assertEquals(pair.getRight(), pair.getRight());
     }
 
     @Test
-    void setDirection() {
+    void shouldMakeRightMoves() {
+        field.moveSnakeToEatApple();
+        Assertions.assertTrue(field.getSnake().contains(new Pair<>(7, 6)));
+        Assertions.assertFalse(field.getSnake().contains(new Pair<>(7, 3)));
+    }
+
+    @Test
+    void hasSnakeDidWrongMoveTest() {
         field.setDirection(Direction.UP);
-    }
-
-    @Test
-    void getApple() {
-    }
-
-    @Test
-    void getSnake() {
-    }
-
-    @Test
-    void hasSnakeDidWrongMove() {
-    }
-
-    @Test
-    void getFieldSize() {
-    }
-
-    @Test
-    void getDirection() {
+        field.moveSnakeToEatApple();
+        field.setDirection(Direction.LEFT);
+        field.moveSnakeToEatApple();
+        field.setDirection(Direction.DOWN);
+        field.moveSnakeToEatApple();
+        Assertions.assertFalse(field.hasSnakeDidWrongMove());
     }
 }
