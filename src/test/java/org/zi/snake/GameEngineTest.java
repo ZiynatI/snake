@@ -41,14 +41,14 @@ public class GameEngineTest {
         synchronized (turnLock) {
             turnLock.wait();
         }
-        assertEquals(Arrays.asList(new Pair<>(7, 4), new Pair<>(7, 5), new Pair<>(7, 6)), field.getSnake().stream().toList());
+        assertEquals(Arrays.asList(new Pair<>(7, 4), new Pair<>(7, 5), new Pair<>(7, 6)), field.getSnake());
 
         unpause(waitLock, turnLock);
-        assertEquals(Arrays.asList(new Pair<>(7, 5), new Pair<>(7, 6), new Pair<>(7, 7)), field.getSnake().stream().toList());
+        assertEquals(Arrays.asList(new Pair<>(7, 5), new Pair<>(7, 6), new Pair<>(7, 7)), field.getSnake());
 
         engine.setNextDirection(Direction.DOWN);
         unpause(waitLock, turnLock);
-        assertEquals(Arrays.asList(new Pair<>(7, 6), new Pair<>(7, 7), new Pair<>(8, 7)), field.getSnake().stream().toList());
+        assertEquals(Arrays.asList(new Pair<>(7, 6), new Pair<>(7, 7), new Pair<>(8, 7)), field.getSnake());
 
         assertNull(failure[0]);
     }

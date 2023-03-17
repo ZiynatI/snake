@@ -1,6 +1,6 @@
 package org.zi.snake;
 
-public class GameEngine implements InputCallbackHandler {
+public abstract class GameEngine implements InputCallbackHandler {
 
     private final int SLEEPING_TIME = 1000;
 
@@ -9,6 +9,13 @@ public class GameEngine implements InputCallbackHandler {
     private Field field = new Field();
     private Direction directionForDirectionThread = Direction.RIGHT;
 
+    public GameEngine() {
+    }
+
+    public GameEngine(Field field) {
+        this.field = field;
+    }
+
     public void play() throws InterruptedException {
         boolean gameOver = false;
         System.out.println(printField());
@@ -16,7 +23,7 @@ public class GameEngine implements InputCallbackHandler {
             long startTime = System.currentTimeMillis();
             gameOver = playRound();
             long endTime = System.currentTimeMillis();
-            Thread.sleep(SLEEPING_TIME /*- (endTime - startTime)*/);
+            Thread.sleep(Math.max(0L, SLEEPING_TIME - (endTime - startTime)));
         }
         System.out.println("Game over\nScore:" + score);
     }
@@ -60,4 +67,6 @@ public class GameEngine implements InputCallbackHandler {
     public void setNextDirection(Direction direction) {
         directionForDirectionThread = direction;
     }
+
+    protected abstract void sleep(long ms) throws InterruptedException;
 }
