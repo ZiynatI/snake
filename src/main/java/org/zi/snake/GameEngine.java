@@ -9,9 +9,6 @@ public abstract class GameEngine implements InputCallbackHandler {
     private Field field = new Field();
     private Direction directionForDirectionThread = Direction.RIGHT;
 
-    public GameEngine() {
-    }
-
     public GameEngine(Field field) {
         this.field = field;
     }
@@ -28,7 +25,7 @@ public abstract class GameEngine implements InputCallbackHandler {
         System.out.println("Game over\nScore:" + score);
     }
 
-    private boolean playRound() {
+    protected boolean playRound() {
         field.setDirection(directionForDirectionThread);
         boolean ateApple = field.moveSnakeToEatApple();
         if (ateApple) {
