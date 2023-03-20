@@ -1,4 +1,4 @@
-package org.zi.snake;
+package org.zi.snake.entity;
 
 import java.util.Objects;
 

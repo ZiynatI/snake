@@ -1,4 +1,4 @@
-package org.zi.snake;
+package org.zi.snake.entity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,7 +9,7 @@ public enum Direction {
 
     private List<Direction> allowedDirections = null;
 
-    public List<Direction> getAllowedDirections() {
+    private List<Direction> getAllowedDirections() {
         if (allowedDirections == null) {
             List<Direction> tmp = new ArrayList<>(Arrays.asList(Direction.values()));
             switch (this) {
@@ -29,5 +29,9 @@ public enum Direction {
             allowedDirections = tmp;
         }
         return allowedDirections;
+    }
+
+    public boolean isDirectionAllowed(Direction direction) {
+        return getAllowedDirections().contains(direction);
     }
 }

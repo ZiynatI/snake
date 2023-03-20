@@ -1,28 +1,38 @@
 package org.zi.snake;
 
+import org.zi.snake.entity.Direction;
+import org.zi.snake.entity.Field;
+import org.zi.snake.ui.Renderer;
+
 public abstract class GameEngine implements InputCallbackHandler {
 
-    private final int SLEEPING_TIME = 1000;
+    private final int SLEEPING_TIME = 200;
 
     private int score = 0;
+    private boolean stopped = false;
 
-    private Field field = new Field();
+    private final Field field;
+    private final Renderer renderer;
+
     private Direction directionForDirectionThread = Direction.RIGHT;
 
-    public GameEngine(Field field) {
+    public GameEngine(Field field, Renderer renderer) {
         this.field = field;
+        this.renderer = renderer;
     }
 
     public void play() throws InterruptedException {
         boolean gameOver = false;
-        System.out.println(printField());
-        while (!gameOver) {
+        renderer.renderField(field);
+        while (!gameOver && !stopped) {
             long startTime = System.currentTimeMillis();
             gameOver = playRound();
             long endTime = System.currentTimeMillis();
             Thread.sleep(Math.max(0L, SLEEPING_TIME - (endTime - startTime)));
         }
-        System.out.println("Game over\nScore:" + score);
+        if (!stopped) {
+            renderer.renderGameOver(score);
+        }
     }
 
     protected boolean playRound() {
@@ -31,28 +41,8 @@ public abstract class GameEngine implements InputCallbackHandler {
         if (ateApple) {
             score++;
         }
-        System.out.println(printField());
+        renderer.renderField(field);
         return field.hasSnakeDidWrongMove();
-    }
-
-    private String printField() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("__________________\n");
-        for (int i = 0; i < field.getFieldSize(); i++) {
-            sb.append("|");
-            for (int j = 0; j < field.getFieldSize(); j++) {
-                if (new Pair<>(i, j).equals(field.getApple())) {
-                    sb.append("A");
-                } else if (field.getSnake().contains(new Pair<>(i, j))) {
-                    sb.append("O");
-                } else {
-                    sb.append(" ");
-                }
-            }
-            sb.append("|\n");
-        }
-        sb.append("__________________");
-        return sb.toString();
     }
 
     @Override
@@ -63,6 +53,11 @@ public abstract class GameEngine implements InputCallbackHandler {
     @Override
     public void setNextDirection(Direction direction) {
         directionForDirectionThread = direction;
+    }
+
+    @Override
+    public void stop() {
+        stopped = true;
     }
 
     protected abstract void sleep(long ms) throws InterruptedException;

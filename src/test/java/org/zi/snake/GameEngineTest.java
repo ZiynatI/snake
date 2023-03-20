@@ -3,6 +3,9 @@ package org.zi.snake;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
+import org.zi.snake.entity.Direction;
+import org.zi.snake.entity.Field;
+import org.zi.snake.entity.Pair;
 
 import java.util.Arrays;
 

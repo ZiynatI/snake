@@ -1,4 +1,4 @@
-package org.zi.snake;
+package org.zi.snake.entity;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -102,6 +102,10 @@ public class Field {
 
     public Queue<Pair<Integer, Integer>> getSnake() {
         return snake;
+    }
+
+    public Pair<Integer, Integer> getSnakesHead() {
+        return snakesHead;
     }
 
     public boolean hasSnakeDidWrongMove() {
