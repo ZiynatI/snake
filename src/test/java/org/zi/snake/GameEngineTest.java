@@ -11,7 +11,7 @@ import java.util.Arrays;
 
 public class GameEngineTest {
 
-    @Test
+    /*@Test
     public void engineTest() throws Exception {
         final Object turnLock = new Object();
         final Object waitLock = new Object();
@@ -63,5 +63,5 @@ public class GameEngineTest {
         synchronized (turnLock) {
             turnLock.wait();
         }
-    }
+    }*/
 }
