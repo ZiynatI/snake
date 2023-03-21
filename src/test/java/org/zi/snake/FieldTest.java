@@ -76,6 +76,16 @@ class FieldTest {
         assertEquals(field.getDirection(), Direction.LEFT);
         field.setDirection(Direction.DOWN);
         assertEquals(field.getDirection(), Direction.DOWN);
+    }
 
+    @Test
+    void generateAppleTest() {
+        Field field = new Field(111111);
+        int count = field.getApple().getRight() - field.getSnakesHead().getRight();
+        while (count > 0) {
+            field.moveSnakeToEatApple();
+            count--;
+        }
+        assertEquals(field.getApple(), new Pair<>(4, 11));
     }
 }
