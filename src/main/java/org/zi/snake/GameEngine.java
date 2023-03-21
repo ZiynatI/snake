@@ -4,7 +4,7 @@ import org.zi.snake.entity.Direction;
 import org.zi.snake.entity.Field;
 import org.zi.snake.ui.Renderer;
 
-public abstract class GameEngine implements InputCallbackHandler {
+public class GameEngine implements InputCallbackHandler {
 
     private final int SLEEPING_TIME = 200;
     private int sleepingTimeForTests = 0;
@@ -29,7 +29,7 @@ public abstract class GameEngine implements InputCallbackHandler {
             gameOver = playRound();
             long endTime = System.currentTimeMillis();
             Thread.sleep(Math.max(0L, SLEEPING_TIME - (endTime - startTime)));
-            this.sleepForTest();
+
         }
         if (!stopped) {
             renderer.renderGameOver(score);
@@ -61,5 +61,4 @@ public abstract class GameEngine implements InputCallbackHandler {
         stopped = true;
     }
 
-    protected abstract void sleepForTest() throws InterruptedException;
 }

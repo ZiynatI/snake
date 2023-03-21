@@ -85,7 +85,7 @@ public class Field {
      * This method contributes to the appearance of the desired snake queue at the beginning of the game and is used
      * only in the field constructor
      */
-    protected Queue<Pair<Integer, Integer>> generateSnake() {
+    private Queue<Pair<Integer, Integer>> generateSnake() {
         Queue<Pair<Integer, Integer>> result = new LinkedList<>();
         result.add(new Pair<>(7, 3));
         result.add(new Pair<>(7, 4));

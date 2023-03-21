@@ -10,12 +10,7 @@ public class Main {
         SwingRenderer ui = new SwingRenderer(field.getFieldSize(), field.getFieldSize());
         ui.setVisible(true);
 
-        GameEngine gameEngine = new GameEngine(field, ui) {
-            @Override
-            protected void sleepForTest() throws InterruptedException {
-                /*NOOP*/
-            }
-        };
+        GameEngine gameEngine = new GameEngine(field, ui) {};
 
         ui.setInputCallbackHandler(gameEngine);
 
