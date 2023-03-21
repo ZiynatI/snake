@@ -9,5 +9,4 @@ public interface InputCallbackHandler {
     void setNextDirection(Direction direction);
 
     void stop();
-
 }

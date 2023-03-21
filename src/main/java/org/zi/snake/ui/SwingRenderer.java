@@ -63,6 +63,8 @@ public class SwingRenderer extends JFrame implements Renderer {
             cells[appleCoords.getLeft()][appleCoords.getRight()].setBackground(Color.red);
         }
 
+        field.getSnake().poll();
+
         for (Pair<Integer, Integer> snakePartCoords : field.getSnake()) {
             cells[snakePartCoords.getLeft()][snakePartCoords.getRight()].setBackground(Color.gray);
         }

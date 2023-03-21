@@ -2,10 +2,9 @@ package org.zi.snake.entity;
 
 import java.util.Objects;
 
-
 public class Pair<L, R> {
-    private L left;
-    private R right;
+    private final L left;
+    private final R right;
 
     public Pair(L left, R right) {
         this.left = left;

@@ -1,5 +1,6 @@
 package org.zi.snake.entity;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
@@ -9,20 +10,20 @@ public class Field {
 
     private Pair<Integer, Integer> apple;
 
-    private Queue<Pair<Integer, Integer>> snake;
+    private final Queue<Pair<Integer, Integer>> snake;
     private Pair<Integer, Integer> snakesHead;
 
     private Direction direction;
 
     private boolean snakeDidWrongMove;
 
-    private Random rnd;
+    private final Random rnd;
 
-    public Field() {
+    public Field(int seed) {
         this.apple = new Pair<>(7, 11);
         this.snake = generateSnake();
-        this.snakesHead = new Pair<>(7, 5);
-        rnd = new Random();
+        this.snakesHead = new ArrayList<>(this.snake).get(this.snake.size() - 1);
+        this.rnd = new Random(seed);
         this.direction = Direction.RIGHT;
     }
 
@@ -84,7 +85,7 @@ public class Field {
      * This method contributes to the appearance of the desired snake queue at the beginning of the game and is used
      * only in the field constructor
      */
-    private static Queue<Pair<Integer, Integer>> generateSnake() {
+    protected Queue<Pair<Integer, Integer>> generateSnake() {
         Queue<Pair<Integer, Integer>> result = new LinkedList<>();
         result.add(new Pair<>(7, 3));
         result.add(new Pair<>(7, 4));
@@ -101,7 +102,7 @@ public class Field {
     }
 
     public Queue<Pair<Integer, Integer>> getSnake() {
-        return snake;
+        return new LinkedList<>(snake);
     }
 
     public Pair<Integer, Integer> getSnakesHead() {

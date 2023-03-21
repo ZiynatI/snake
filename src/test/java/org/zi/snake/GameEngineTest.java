@@ -6,62 +6,33 @@ import org.junit.jupiter.api.Test;
 import org.zi.snake.entity.Direction;
 import org.zi.snake.entity.Field;
 import org.zi.snake.entity.Pair;
+import org.zi.snake.ui.ConsoleRenderer;
 
 import java.util.Arrays;
 
 public class GameEngineTest {
+    boolean testing = false;
 
-    /*@Test
+    @Test
     public void engineTest() throws Exception {
-        final Object turnLock = new Object();
-        final Object waitLock = new Object();
+        Field field = new Field(111111);
+        ConsoleRenderer cr = new ConsoleRenderer();
 
-        final Exception[] failure = {null};
-        Field field = new Field();
-
-        final GameEngine engine = new GameEngine(field) {
+        final GameEngine engine = new GameEngine(field, cr) {
             @Override
-            protected void sleep(long ms) throws InterruptedException {
-                synchronized (turnLock) {
-                    turnLock.notify();
-                }
-                synchronized (waitLock) {
-                    waitLock.wait();
-                }
+            protected void sleepForTest() {
+                assertEquals(Arrays.asList(new Pair<>(7, 4), new Pair<>(7, 5), new Pair<>(7, 6)), field.getSnake());
             }
         };
 
-        Thread engineThread = new Thread(() -> {
-            try {
-                engine.play();
-            } catch (Exception ex) {
-                failure[0] = ex;
-            }
-        });
-        engineThread.setDaemon(true);
-        engineThread.start();
+        engine.play();
 
-        synchronized (turnLock) {
-            turnLock.wait();
-        }
-        assertEquals(Arrays.asList(new Pair<>(7, 4), new Pair<>(7, 5), new Pair<>(7, 6)), field.getSnake());
 
-        unpause(waitLock, turnLock);
         assertEquals(Arrays.asList(new Pair<>(7, 5), new Pair<>(7, 6), new Pair<>(7, 7)), field.getSnake());
 
         engine.setNextDirection(Direction.DOWN);
-        unpause(waitLock, turnLock);
         assertEquals(Arrays.asList(new Pair<>(7, 6), new Pair<>(7, 7), new Pair<>(8, 7)), field.getSnake());
 
-        assertNull(failure[0]);
-    }
 
-    private void unpause(Object waitLock, Object turnLock) throws InterruptedException {
-        synchronized (waitLock) {
-            waitLock.notify();
-        }
-        synchronized (turnLock) {
-            turnLock.wait();
-        }
-    }*/
+    }
 }

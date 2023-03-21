@@ -4,16 +4,16 @@ import org.zi.snake.entity.Field;
 import org.zi.snake.ui.SwingRenderer;
 
 public class Main {
-    public static void main(String[] args) throws InterruptedException {
-        Field field = new Field();
+    public static void main(String[] args) throws Exception {
+        Field field = new Field((int) (Math.random() * 1000000));
 
         SwingRenderer ui = new SwingRenderer(field.getFieldSize(), field.getFieldSize());
         ui.setVisible(true);
 
         GameEngine gameEngine = new GameEngine(field, ui) {
             @Override
-            protected void sleep(long ms) throws InterruptedException {
-                Thread.sleep(ms);
+            protected void sleepForTest() throws InterruptedException {
+                /*NOOP*/
             }
         };
 

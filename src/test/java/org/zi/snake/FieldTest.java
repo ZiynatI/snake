@@ -10,7 +10,7 @@ import org.zi.snake.entity.Pair;
 
 class FieldTest {
 
-    private Field field = new Field();
+    private Field field = new Field(111111);
 
     @Test
     void appleShouldBeHereAtBeginning() {
