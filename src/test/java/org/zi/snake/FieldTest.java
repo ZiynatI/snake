@@ -79,7 +79,7 @@ class FieldTest {
 
     @Test
     void generateAppleTest() {
-        Field field = new Field(new Pair<>(7, 6), 111111);
+        Field field = new Field(111111, new Pair<>(7, 6));
         field.moveSnake();
         assertEquals(field.getApple(), new Pair<>(4, 11));
     }

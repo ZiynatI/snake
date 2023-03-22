@@ -19,21 +19,18 @@ public class Field {
 
     private final Random rnd;
 
-    public Field(int seed) {
-        this.apple = new Pair<>(7, 11);
-        this.snake = generateSnake();
-        this.snakesHead = new ArrayList<>(this.snake).get(this.snake.size() - 1);
-        this.rnd = new Random(seed);
-        this.direction = Direction.RIGHT;
-    }
-
-    public Field(Pair<Integer,Integer> apple,int seed){
+    public Field(int seed, Pair<Integer, Integer> apple) {
         this.apple = apple;
         this.snake = generateSnake();
         this.snakesHead = new ArrayList<>(this.snake).get(this.snake.size() - 1);
         this.rnd = new Random(seed);
         this.direction = Direction.RIGHT;
     }
+
+    public Field(int seed) {
+        this(seed, new Pair<Integer, Integer>(7, 11));
+    }
+
 
     private Pair<Integer, Integer> getNextHead() {
         switch (this.direction) {
