@@ -79,12 +79,8 @@ class FieldTest {
 
     @Test
     void generateAppleTest() {
-        Field field = new Field(111111);
-        int count = field.getApple().getRight() - field.getSnakesHead().getRight();
-        while (count > 0) {
-            field.moveSnake();
-            count--;
-        }
+        Field field = new Field(new Pair<>(7, 6), 111111);
+        field.moveSnake();
         assertEquals(field.getApple(), new Pair<>(4, 11));
     }
 }

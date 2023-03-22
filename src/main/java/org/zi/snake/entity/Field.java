@@ -27,6 +27,14 @@ public class Field {
         this.direction = Direction.RIGHT;
     }
 
+    public Field(Pair<Integer,Integer> apple,int seed){
+        this.apple = apple;
+        this.snake = generateSnake();
+        this.snakesHead = new ArrayList<>(this.snake).get(this.snake.size() - 1);
+        this.rnd = new Random(seed);
+        this.direction = Direction.RIGHT;
+    }
+
     private Pair<Integer, Integer> getNextHead() {
         switch (this.direction) {
             case RIGHT:
