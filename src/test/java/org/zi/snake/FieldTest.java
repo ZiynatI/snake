@@ -2,7 +2,6 @@ package org.zi.snake;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.zi.snake.entity.Direction;
 import org.zi.snake.entity.Field;
@@ -21,19 +20,19 @@ class FieldTest {
     @Test
     void shouldMakeRightMoves() {
         Field field = new Field(111111);
-        field.moveSnakeToEatApple();
+        field.moveSnake();
         assertEquals(field.getSnake(), Arrays.asList(new Pair<>(7, 4), new Pair<>(7, 5), new Pair<>(7, 6)));
         field.setDirection(Direction.DOWN);
-        field.moveSnakeToEatApple();
+        field.moveSnake();
         assertEquals(field.getSnake(), Arrays.asList(new Pair<>(7, 5), new Pair<>(7, 6), new Pair<>(8, 6)));
         field.setDirection(Direction.LEFT);
-        field.moveSnakeToEatApple();
+        field.moveSnake();
         assertEquals(field.getSnake(), Arrays.asList(new Pair<>(7, 6), new Pair<>(8, 6), new Pair<>(8, 5)));
         field.setDirection(Direction.UP);
-        field.moveSnakeToEatApple();
+        field.moveSnake();
         assertEquals(field.getSnake(), Arrays.asList(new Pair<>(8, 6), new Pair<>(8, 5), new Pair<>(7, 5)));
         field.setDirection(Direction.RIGHT);
-        field.moveSnakeToEatApple();
+        field.moveSnake();
         assertEquals(field.getSnake(), Arrays.asList(new Pair<>(8, 5), new Pair<>(7, 5), new Pair<>(7, 6)));
     }
 
@@ -54,7 +53,7 @@ class FieldTest {
         Field field = new Field(111111);
         int count = field.getFieldSize() - field.getSnakesHead().getRight();
         while (count > 0) {
-            field.moveSnakeToEatApple();
+            field.moveSnake();
             count--;
         }
         assertEquals(field.hasSnakeDidWrongMove(), true);
@@ -83,7 +82,7 @@ class FieldTest {
         Field field = new Field(111111);
         int count = field.getApple().getRight() - field.getSnakesHead().getRight();
         while (count > 0) {
-            field.moveSnakeToEatApple();
+            field.moveSnake();
             count--;
         }
         assertEquals(field.getApple(), new Pair<>(4, 11));

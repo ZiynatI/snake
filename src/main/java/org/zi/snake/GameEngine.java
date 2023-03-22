@@ -38,7 +38,7 @@ public class GameEngine implements InputCallbackHandler {
 
     protected boolean playRound() {
         field.setDirection(directionForDirectionThread);
-        boolean ateApple = field.moveSnakeToEatApple();
+        boolean ateApple = field.moveSnake();
         if (ateApple) {
             score++;
         }

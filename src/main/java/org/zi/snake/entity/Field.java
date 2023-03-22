@@ -44,7 +44,7 @@ public class Field {
     /**
      * returns true if snake eat apple and false if not
      */
-    public boolean moveSnakeToEatApple() {
+    public boolean moveSnake() {
         Pair<Integer, Integer> cellToMoveIn = getNextHead();
         if (didWrongMove(cellToMoveIn)) {
             this.snakeDidWrongMove = true;
